@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+      "target": "es2019",
+      "module": "commonjs",
+      "declaration": true,
+      "outDir": "./dist",
+      "strict": true,
+      "lib": ["es6"],
+      "noImplicitAny": false,
+      "resolveJsonModule": true,
+      "allowJs": true,
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "types": [
+          "typescript-to-lua/language-extensions",
+          "@types/node"
+      ]
+    },
+    "include": ["src"],
+    "exclude": ["**/node_modules/*", "**/__tests__/*", "**dist/*"]
+  }
