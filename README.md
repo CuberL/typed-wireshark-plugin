@@ -8,7 +8,7 @@ Build your WireShark plugins (dissectors, etc.) in TypeScript with powerful type
 
 
 ## Why you need this
-Sometime you need to develop your own wireshark dissector to recognize and parse your data packet if wireshark not support that protocal. The offical way is using lua. It's really hard and unfriendly for those newbies because lua is a language without types supported. You need to read the references documents once and once again when you develop dissectors especially if you are new on it. Some obvious bug can't be found in development stage and you need reload the plugin in WireShark again and again to adjust it.
+Sometimes you need to develop your own wireshark dissector to recognize and parse your data packet if wireshark not support that protocal. The offical way is using lua. It's really hard and unfriendly for those newbies because lua is a language without types supported. You need to read the references documents once and once again when you develop dissectors especially if you are new on it. Some obvious bug can't be found in development stage and you need reload the plugin in WireShark again and again to adjust it.
 
 `typed-wireshark-plugin` provided full typing supported and can compile to lua base on [TypeScriptToLua](https://github.com/TypeScriptToLua/TypeScriptToLua). You can found obvious bug in compile time and save your time.   
 
