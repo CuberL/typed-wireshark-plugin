@@ -40,36 +40,36 @@ Edit the file `index.ts`, you may need some knowledge about how to develop WireS
 Example code:
 ``` typescript
 {
-    const proto_hid = Proto("foo", "Foo Protocal");
+    const proto_foo = Proto("foo", "Foo Protocal");
     const field_packet_header = ProtoField.uint8("foo.packet_header", "Packet Header", base.HEX);
 
-    proto_hid.fields = [
+    proto_foo.fields = [
         field_packet_header
     ];
 
     const dissector_data = Dissector.get('data');
 
-    function dissector_hid (this: void, buf: Tvb, pkt: Pinfo, tree: TreeItem): boolean {
+    function dissector_foo (this: void, buf: Tvb, pkt: Pinfo, tree: TreeItem): boolean {
         const value_packet_header = buf(0, 1);
         if (value_packet_header.uint() != 0x7e) {
             return false
         }
 
-        const tree_buf = tree.add(proto_hid, buf);
-        pkt.cols.protocol = "HID"
+        const tree_buf = tree.add(proto_foo, buf);
+        pkt.cols.protocol = "Foo"
 
         tree_buf.add(field_packet_header, value_packet_header);
         return true
     }
 
-    proto_hid.dissector = function (buf, info, tree) {
-        if (!dissector_hid(buf, info, tree)) {
+    proto_foo.dissector = function (buf, info, tree) {
+        if (!dissector_foo(buf, info, tree)) {
             dissector_data.call(buf, info, tree)
         }
     }
 
     const tcp_table = DissectorTable.get('tcp.port') as DissectorTable; 
-    tcp_table.add(9999, proto_hid);
+    tcp_table.add(9999, proto_foo);
 }
 ```
 
@@ -84,27 +84,27 @@ You will find `index.lua` in the same directory if no error. Then you can import
 ```lua
 --[[ Generated with https://github.com/TypeScriptToLua/TypeScriptToLua ]]
 do
-    local proto_hid = Proto("foo", "Foo Protocal")
+    local proto_foo = Proto("foo", "Foo Protocal")
     local field_packet_header = ProtoField.uint8("foo.packet_header", "Packet Header", base.HEX)
-    proto_hid.fields = {field_packet_header}
+    proto_foo.fields = {field_packet_header}
     local dissector_data = Dissector.get("data")
-    local function dissector_hid(buf, pkt, tree)
+    local function dissector_foo(buf, pkt, tree)
         local value_packet_header = buf(0, 1)
         if value_packet_header:uint() ~= 126 then
             return false
         end
-        local tree_buf = tree:add(proto_hid, buf)
-        pkt.cols.protocol = "HID"
+        local tree_buf = tree:add(proto_foo, buf)
+        pkt.cols.protocol = "Foo"
         tree_buf:add(field_packet_header, value_packet_header)
         return true
     end
-    proto_hid.dissector = function(buf, info, tree)
-        if not dissector_hid(buf, info, tree) then
+    proto_foo.dissector = function(buf, info, tree)
+        if not dissector_foo(buf, info, tree) then
             dissector_data:call(buf, info, tree)
         end
     end
     local tcp_table = DissectorTable.get("tcp.port")
-    tcp_table:add(9999, proto_hid)
+    tcp_table:add(9999, proto_foo)
 end
 ```
 
